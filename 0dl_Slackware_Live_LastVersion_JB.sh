@@ -31,7 +31,7 @@ wget "$repoLink" -O "latestVersion"
 
 versionOnRepo=$(grep "href=\"[0-9]\.[0-9]\.[0-9]" < latestVersion | cut -d 'h' -f2 | cut -d '"' -f2 | cut -d '/' -f1 |  tail -n 1)
 
-versionLocal=$(find Slackware-Live* | head -n 1 | cut -d '-' -f3)
+versionLocal=$(find Slackware-Live-* | head -n 1 | cut -d '-' -f3)
 echo -e "\n   Version Downloaded: $versionLocal\nVersion Online (repo): $versionOnRepo\n"
 
 if [ "$versionLocal" == "$versionOnRepo" ]; then

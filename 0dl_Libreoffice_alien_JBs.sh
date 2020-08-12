@@ -40,7 +40,7 @@ pathDl="libreoffice"
 
 version=$(grep "$pathDl-[[:digit:]].*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '-' -f2)
 
-downloadedVersion=$(find Libreoffice* | head -n 1 | cut -d '-' -f2)
+downloadedVersion=$(find Libreoffice-* | head -n 1 | cut -d '-' -f2)
 echo -e "\n    Latest version: $version\nVersion downloaded: $downloadedVersion\n"
 if [ "$downloadedVersion" != '' ]; then
     if [ "$version" == "$downloadedVersion" ]; then

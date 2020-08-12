@@ -37,7 +37,7 @@ wget "$linkGetVersion" -O "${progName}_latest"
 version=$(grep "VirtualBox.* platform packages" ${progName}_latest | cut -d '>' -f4 | cut -d ' ' -f2)
 rm "${progName}_latest"
 
-downloadedVersion=$(find VirtualBox* | head -n 1 | cut -d '-' -f2)
+downloadedVersion=$(find VirtualBox-* | head -n 1 | cut -d '-' -f2)
 echo -e "\n    Latest version: $version\nVersion downloaded: $downloadedVersion\n"
 if [ "$downloadedVersion" != '' ]; then
     if [ "$version" == "$downloadedVersion" ]; then
