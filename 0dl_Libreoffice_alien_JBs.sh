@@ -74,8 +74,8 @@ runFile=$(echo -e "$runFile1\n$runFile2\n$runFile3\n$runFile4\n$runFile5")
 
 echo -e "Files found:\n$runFile\n"
 
-mkdir "${pathDl}-new"
-cd "${pathDl}-new" || exit
+mkdir "Libreoffice-${version}"
+cd "Libreoffice-${version}" || exit
 
 for fileGrep in $(echo -e "$runFile"); do
     wget -c "$mirrorDl/$fileGrep"
