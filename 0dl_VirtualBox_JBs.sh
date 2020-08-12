@@ -62,8 +62,8 @@ runFile=$(echo "$runFileMd5" | cut -d '*' -f2)
 extpackFile=$(echo "$extpackFileMd5" | cut -d '*' -f2)
 rm MD5SUMS
 
-mkdir "${progName}-${version}-new"
-cd "$progName-$version-new" || exit
+mkdir "VirtualBox-${version}"
+cd "VirtualBox-${version}" || exit
 
 wget -c "$mirrorDl/$runFile"
 wget -c "$mirrorDl/$extpackFile"
