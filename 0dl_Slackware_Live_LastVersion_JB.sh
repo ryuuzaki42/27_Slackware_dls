@@ -25,17 +25,6 @@
 #
 echo "Script to download the last version of Slackware Live, made by AlienBob"
 
-if [ "$#" -lt '1' ]; then
-    echo -e "\nYou need to pass the folder destination of the download\n"
-    exit 1
-fi
-
-folderDestination=$1
-if [ ! -x "$folderDestination" ]; then
-    echo -e "\nFolder destination of the download: \"folderDestination\" don't exit\n"
-    exit 1
-fi
-
 #repoLink="http://bear.alienbase.nl/mirrors/slackware-live"
 repoLink="https://slackware.nl/slackware-live/"
 wget "$repoLink" -O "latestVersion"
@@ -61,8 +50,8 @@ if [ "$versionLocal" == "$versionOnRepo" ]; then
     fi
 fi
 
-mkdir "$versionOnRepo"
-cd "$versionOnRepo" || exit
+mkdir "Slackware-Live-$versionOnRepo"
+cd "Slackware-Live-$versionOnRepo" || exit
 
 wget "$repoLink/$versionOnRepo" -O "latestVersion"
 
