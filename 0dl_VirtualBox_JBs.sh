@@ -37,11 +37,11 @@ wget "$linkGetVersion" -O "${progName}_latest"
 version=$(grep "VirtualBox.* platform packages" ${progName}_latest | cut -d '>' -f4 | cut -d ' ' -f2)
 rm "${progName}_latest"
 
-installedVersion=$(find VirtualBox* | cut -d '-' -f2)
-echo -e "\n   Latest version: $version\nVersion installed: $installedVersion\n"
-if [ "$installedVersion" != '' ]; then
-    if [ "$version" == "$installedVersion" ]; then
-        echo -e "Version installed ($installedVersion) is equal to latest version ($version)"
+downloadedVersion=$(find VirtualBox* | head -n 1 | cut -d '-' -f2)
+echo -e "\n    Latest version: $version\nVersion downloaded: $downloadedVersion\n"
+if [ "$downloadedVersion" != '' ]; then
+    if [ "$version" == "$downloadedVersion" ]; then
+        echo -e "Version downloaded ($downloadedVersion) is equal to latest version ($version)"
         echo -n "Want continue? (y)es - (n)o (hit enter to no): "
         read -r continue
 
@@ -69,7 +69,7 @@ wget -c "$mirrorDl/$runFile"
 wget -c "$mirrorDl/$extpackFile"
 #wget -c "$mirrorDl/UserManual.pdf"
 
-echo  -e "\\nCheck md5sum files download\\n"
+echo  -e "\\nCheck md5sum files downloaded\\n"
 tmpFile=$(mktemp)
 echo "$runFileMd5" > "$tmpFile"
 echo "$extpackFileMd5" >> "$tmpFile"
