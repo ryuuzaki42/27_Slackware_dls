@@ -21,24 +21,25 @@
 #
 # Descrição: Script to download the last version of Libreoffice, made by AlienBob
 #
-# Last update: 12/08/2020
+# Last update: 14/08/2020
 #
 case "$(uname -m)" in
     i?86) archDL="x86" ;;
     *) archDL=$(uname -m) ;;
 esac
 
-mirrorStart="http://bear.alienbase.nl/mirrors/people/alien/sbrepos"
+mirrorStart="http://www.slackware.com/~alien/slackbuilds/"
 slackVersion="14.2"
+#slackVersion="current"
 echo -e "\\nMirror: $mirrorStart\\nSlackware version: $slackVersion\\n"
 
-mirrorDl="$mirrorStart/$slackVersion/$archDL"
+wget "$mirrorStart/CHECKSUMS.md5" -O CHECKSUMS.md5
 
-wget "$mirrorDl/CHECKSUMS.md5" -O CHECKSUMS.md5
+grep $slackVersion < CHECKSUMS.md5 > CHECKSUMS.md5.2
+mv CHECKSUMS.md5.2 CHECKSUMS.md5
 
-pathDl="libreoffice"
-
-version=$(grep "$pathDl-[[:digit:]].*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '-' -f2)
+progName="libreoffice"
+version=$(grep "$progName-[[:digit:]].*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '-' -f2)
 
 downloadedVersion=$(find Libreoffice-* | head -n 1 | cut -d '-' -f2)
 echo -e "\n    Latest version: $version\nVersion downloaded: $downloadedVersion\n"
@@ -56,21 +57,25 @@ if [ "$downloadedVersion" != '' ]; then
     fi
 fi
 
-runFile1=$(grep "$pathDl-[[:digit:]].*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '.' -f2-)
-runFile2=$(grep "$pathDl-dict-pt-BR-.*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '.' -f2-)
-runFile3=$(grep "$pathDl-dict-en-.*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '.' -f2-)
-runFile4=$(grep "$pathDl-kde-integration-.*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '.' -f2-)
-runFile5=$(grep "$pathDl-l10n-pt_BR-.*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '.' -f2-)
+grep "$progName" < CHECKSUMS.md5 > CHECKSUMS.md5.2
+mv CHECKSUMS.md5.2 CHECKSUMS.md5
 
-grep "$pathDl-[[:digit:]].*$archDL.*t*z$" < CHECKSUMS.md5 > CHECKSUMS_libreoffice.md5
-grep "$pathDl-dict-pt-BR-.*$archDL.*t*z$" < CHECKSUMS.md5 >> CHECKSUMS_libreoffice.md5
-grep "$pathDl-dict-en-.*$archDL.*t*z$" < CHECKSUMS.md5 >> CHECKSUMS_libreoffice.md5
-grep "$pathDl-kde-integration-.*$archDL.*t*z$" < CHECKSUMS.md5 >> CHECKSUMS_libreoffice.md5
-grep "$pathDl-l10n-pt_BR-.*$archDL.*t*z$" < CHECKSUMS.md5 >> CHECKSUMS_libreoffice.md5
+runFile1=$(grep "$progName-[[:digit:]].*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '.' -f2-)
+runFile2=$(grep "$progName-dict-pt-BR-.*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '.' -f2-)
+runFile3=$(grep "$progName-dict-en-.*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '.' -f2-)
+#runFile4=$(grep "$progName-kde-integration-.*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '.' -f2-)
+runFile5=$(grep "$progName-l10n-pt_BR-.*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '.' -f2-)
+
+grep "$progName-[[:digit:]].*$archDL.*t*z$" < CHECKSUMS.md5 > CHECKSUMS_libreoffice.md5
+grep "$progName-dict-pt-BR-.*$archDL.*t*z$" < CHECKSUMS.md5 >> CHECKSUMS_libreoffice.md5
+grep "$progName-dict-en-.*$archDL.*t*z$" < CHECKSUMS.md5 >> CHECKSUMS_libreoffice.md5
+#grep "$progName-kde-integration-.*$archDL.*t*z$" < CHECKSUMS.md5 >> CHECKSUMS_libreoffice.md5
+grep "$progName-l10n-pt_BR-.*$archDL.*t*z$" < CHECKSUMS.md5 >> CHECKSUMS_libreoffice.md5
 
 rm CHECKSUMS.md5
 
-runFile=$(echo -e "$runFile1\n$runFile2\n$runFile3\n$runFile4\n$runFile5")
+#runFile=$(echo -e "$runFile1\n$runFile2\n$runFile3\n$runFile4\n$runFile5")
+runFile=$(echo -e "$runFile1\n$runFile2\n$runFile3\n$runFile5")
 
 echo -e "Files found:\n$runFile\n"
 
@@ -78,7 +83,7 @@ mkdir "Libreoffice-${version}"
 cd "Libreoffice-${version}" || exit
 
 for fileGrep in $(echo -e "$runFile"); do
-    wget -c "$mirrorDl/$fileGrep"
+    wget -c "$mirrorStart/$fileGrep"
 done
 
 echo -e "\n\n# Checking md5sum #"
