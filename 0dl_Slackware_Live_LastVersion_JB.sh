@@ -21,7 +21,7 @@
 #
 # Descrição: Script to download the last version of Slackware Live, made by AlienBob
 #
-# Última atualização: 12/08/2020
+# Last update: 12/08/2020
 #
 echo "Script to download the last version of Slackware Live, made by AlienBob"
 
