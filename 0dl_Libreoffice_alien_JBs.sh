@@ -21,7 +21,7 @@
 #
 # Descrição: Script to download the last version of Libreoffice, made by AlienBob
 #
-# Última atualização: 12/08/2020
+# Last update: 12/08/2020
 #
 case "$(uname -m)" in
     i?86) archDL="x86" ;;
