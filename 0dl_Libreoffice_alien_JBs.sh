@@ -21,7 +21,7 @@
 #
 # Descrição: Script to download the last version of Libreoffice, made by AlienBob
 #
-# Last update: 14/08/2020
+# Last update: 24/08/2020
 #
 case "$(uname -m)" in
     i?86) archDL="x86" ;;
@@ -66,11 +66,13 @@ runFile3=$(grep "$progName-dict-en-.*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '.'
 #runFile4=$(grep "$progName-kde-integration-.*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '.' -f2-)
 runFile5=$(grep "$progName-l10n-pt_BR-.*$archDL.*t*z$" < CHECKSUMS.md5 | cut -d '.' -f2-)
 
-grep "$progName-[[:digit:]].*$archDL.*t*z$" < CHECKSUMS.md5 > CHECKSUMS_libreoffice.md5
-grep "$progName-dict-pt-BR-.*$archDL.*t*z$" < CHECKSUMS.md5 >> CHECKSUMS_libreoffice.md5
-grep "$progName-dict-en-.*$archDL.*t*z$" < CHECKSUMS.md5 >> CHECKSUMS_libreoffice.md5
-#grep "$progName-kde-integration-.*$archDL.*t*z$" < CHECKSUMS.md5 >> CHECKSUMS_libreoffice.md5
-grep "$progName-l10n-pt_BR-.*$archDL.*t*z$" < CHECKSUMS.md5 >> CHECKSUMS_libreoffice.md5
+{
+    grep "$progName-[[:digit:]].*$archDL.*t*z$" < CHECKSUMS.md5
+    grep "$progName-dict-pt-BR-.*$archDL.*t*z$" < CHECKSUMS.md5
+    grep "$progName-dict-en-.*$archDL.*t*z$" < CHECKSUMS.md5
+    #grep "$progName-kde-integration-.*$archDL.*t*z$" < CHECKSUMS.md5
+    grep "$progName-l10n-pt_BR-.*$archDL.*t*z$" < CHECKSUMS.md5
+} > CHECKSUMS_libreoffice.md5
 
 rm CHECKSUMS.md5
 
