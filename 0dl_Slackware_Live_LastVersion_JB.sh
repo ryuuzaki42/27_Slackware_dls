@@ -21,18 +21,21 @@
 #
 # Descrição: Script to download the last version of Slackware Live, made by AlienBob
 #
-# Last update: 12/08/2020
+# Last update: 18/10/2020
 #
-echo "Script to download the last version of Slackware Live, made by AlienBob"
+echo -e "\\nScript to download the last version of Slackware Live (made by Alien Bob)\\n"
+
+# last tested: "1.3.7"
 
 #repoLink="http://bear.alienbase.nl/mirrors/slackware-live"
 repoLink="https://slackware.nl/slackware-live/"
+
 wget "$repoLink" -O "latestVersion"
 
-versionOnRepo=$(grep "href=\"[0-9]\.[0-9]\.[0-9]" < latestVersion | cut -d 'h' -f2 | cut -d '"' -f2 | cut -d '/' -f1 |  tail -n 1)
+versionOnRepo=$(grep "href=\"[0-9]\.[0-9]\.[0-9]" < latestVersion | cut -d 'h' -f2 | cut -d '"' -f2 | cut -d '/' -f1 | tail -n 1)
 
 versionLocal=$(find Slackware-Live-* | head -n 1 | cut -d '-' -f3)
-echo -e "\n   Version Downloaded: $versionLocal\nVersion Online (repo): $versionOnRepo\n"
+echo -e "\\n   Version Downloaded: $versionLocal\\nVersion Online (repo): $versionOnRepo\n"
 
 if [ "$versionLocal" == "$versionOnRepo" ]; then
     echo -e "# No new version found #\n"
@@ -113,7 +116,7 @@ done
 
 printTrace
 
-echo -e "\nWant download with one of them?"
+echo -e "\\nWant download with one of them?"
 echo -n "Insert the matching number separated by one space: "
 read -r downloadIsoNumbers
 
@@ -122,11 +125,15 @@ linkDlFiles=${repoLink}/$versionOnRepo
 while [ "$countTmp" -lt "$countLine" ]; do
     tmpInfo=$(echo "$nameISO" | sed -n "${countTmp}p")
     if echo "$downloadIsoNumbers" | grep -q "$countTmp"; then
-        echo "Download: $countTmp -  $tmpInfo"
-        echo -e "\nwget \"$repoLink/$tmpInfo(|.md5|.asc)\"\n"
+        echo "Download: $countTmp - $tmpInfo"
 
+        echo -e "\\n wget -c \"$repoLink/$tmpInfo\"\\n"
         wget -c "$linkDlFiles/$tmpInfo"
+
+        echo -e "\\n wget -c \"$repoLink/$tmpInfo.md5\"\\n"
         wget -c "$linkDlFiles/$tmpInfo.md5"
+
+        echo -e "\\n wget -c \"$repoLink/$tmpInfo.asc\"\\n"
         wget -c "$linkDlFiles/$tmpInfo.asc"
     fi
 
@@ -140,9 +147,16 @@ read -r downloadOrNot
 if [ "$downloadOrNot" != 'n' ];then
     repoLinkConfig="http://www.slackware.com/~alien/liveslak/"
 
+    echo -e "\\n wget -c \"$repoLink/README\"\\n"
     wget -c "$repoLink/README"
+
+    echo -e "\\n wget -c \"${repoLinkConfig}iso2usb.sh\"\\n"
     wget -c "${repoLinkConfig}iso2usb.sh"
 fi
+
+echo " # Md5sum check #"
+md5sum -c slackware*.md5
+
 cd .. || exit
 
 if [ "$versionLocal" != '' ] && [ "$versionLocal" != "$versionOnRepo" ]; then
@@ -156,4 +170,3 @@ if [ "$versionLocal" != '' ] && [ "$versionLocal" != "$versionOnRepo" ]; then
 fi
 
 rm latestVersion
-echo -e "\nEnd of the script\n"
