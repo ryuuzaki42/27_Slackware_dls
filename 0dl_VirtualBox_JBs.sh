@@ -21,7 +21,7 @@
 #
 # Descrição: Script to download the last version VirtualBox
 #
-# Last update: 09/10/2020
+# Last update: 18/10/2020
 #
 case "$(uname -m)" in
     i?86) archDL="x86" ;;
@@ -38,7 +38,7 @@ version=$(grep "VirtualBox.* platform packages" ${progName}_latest | cut -d '>' 
 rm "${progName}_latest"
 
 downloadedVersion=$(find VirtualBox-* | head -n 1 | cut -d '-' -f2)
-echo -e "\n    Latest version: $version\nVersion downloaded: $downloadedVersion\n"
+echo -e "\\n    Latest version: $version\nVersion downloaded: $downloadedVersion\\n"
 if [ "$downloadedVersion" != '' ]; then
     if [ "$version" == "$downloadedVersion" ]; then
         echo -e "Version downloaded ($downloadedVersion) is equal to latest version ($version)"
@@ -46,7 +46,7 @@ if [ "$downloadedVersion" != '' ]; then
         read -r continue
 
         if [ "$continue" != 'y' ]; then
-            echo -e "\nJust exiting\n"
+            echo -e "\\nJust exiting\\n"
             exit 0
         fi
     fi
