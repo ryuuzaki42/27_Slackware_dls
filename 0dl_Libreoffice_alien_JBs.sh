@@ -91,6 +91,7 @@ done
 
 echo -e "\\n\\n# Checking md5sum #"
 mv  ../CHECKSUMS_libreoffice.md5 .
+sed -i 's/pkg64\/'$slackVersion'\///g' CHECKSUMS_libreoffice.md5
 sed -i 's/.\/libreoffice\///g' CHECKSUMS_libreoffice.md5
 
 md5sum -c CHECKSUMS_libreoffice.md5
