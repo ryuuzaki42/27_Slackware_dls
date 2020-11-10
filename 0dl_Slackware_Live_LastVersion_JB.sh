@@ -21,14 +21,14 @@
 #
 # Descrição: Script to download the last version of Slackware Live, made by AlienBob
 #
-# Last update: 18/10/2020
+# Last update: 10/11/2020
 #
 echo -e "\\nScript to download the last version of Slackware Live (made by Alien Bob)\\n"
 
 # last tested: "1.3.7"
 
-#repoLink="http://bear.alienbase.nl/mirrors/slackware-live"
-repoLink="https://slackware.nl/slackware-live/"
+repoLink="http://bear.alienbase.nl/mirrors/slackware-live"
+#repoLink="https://slackware.nl/slackware-live"
 
 wget "$repoLink" -O "latestVersion"
 
@@ -127,13 +127,13 @@ while [ "$countTmp" -lt "$countLine" ]; do
     if echo "$downloadIsoNumbers" | grep -q "$countTmp"; then
         echo "Download: $countTmp - $tmpInfo"
 
-        echo -e "\\n wget -c \"$repoLink/$tmpInfo\"\\n"
+        echo -e "\\n wget -c \"$linkDlFiles/$tmpInfo\"\\n"
         wget -c "$linkDlFiles/$tmpInfo"
 
-        echo -e "\\n wget -c \"$repoLink/$tmpInfo.md5\"\\n"
+        echo -e "\\n wget -c \"$linkDlFiles/$tmpInfo.md5\"\\n"
         wget -c "$linkDlFiles/$tmpInfo.md5"
 
-        echo -e "\\n wget -c \"$repoLink/$tmpInfo.asc\"\\n"
+        echo -e "\\n wget -c \"$linkDlFiles/$tmpInfo.asc\"\\n"
         wget -c "$linkDlFiles/$tmpInfo.asc"
     fi
 
