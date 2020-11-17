@@ -29,7 +29,7 @@ case "$(uname -m)" in
 esac
 
 mirrorStart="http://www.slackware.com/~alien/slackbuilds"
-# last tested - 14.2: "6.4.6" current: "7.0.2"
+# last tested - 14.2: "6.4.6" current: "7.0.3"
 
 if [ "$1" == '' ]; then
     echo -en "\\n$CYAN# Most downloaded versions:$GREEN 14.0, 14.1, 14.2, current$CYAN\\nWith version Slackware you want? $GREEN(press enter to 14.2):$NC "
