@@ -21,22 +21,31 @@
 #
 # Descrição: Script to download the last version of Libreoffice, made by AlienBob
 #
-# Last update: 18/10/2020
+# Last update: 17/11/2020
 #
 case "$(uname -m)" in
     i?86) archDL="x86" ;;
     *) archDL=$(uname -m) ;;
 esac
 
-mirrorStart="http://www.slackware.com/~alien/slackbuilds/"
+mirrorStart="http://www.slackware.com/~alien/slackbuilds"
+# last tested - 14.2: "6.4.6" current: "7.0.2"
 
-slackVersion="14.2" # last tested: "6.4.6"
-#slackVersion="current" # last tested: "7.0.2"
+if [ "$1" == '' ]; then
+    echo -en "\\n$CYAN# Most downloaded versions:$GREEN 14.0, 14.1, 14.2, current$CYAN\\nWith version Slackware you want? $GREEN(press enter to 14.2):$NC "
+    read -r slackwareVersion
 
-echo -e "\\nMirror: $mirrorStart\\nSlackware version: $slackVersion\\n"
+    if [ "$slackwareVersion" == '' ]; then
+        slackwareVersion="14.2"
+    fi
+else
+    slackwareVersion=$1
+fi
+
+echo -e "\\nMirror: $mirrorStart\\nSlackware version: $slackwareVersion\\n"
 wget "$mirrorStart/CHECKSUMS.md5" -O CHECKSUMS.md5
 
-grep $slackVersion < CHECKSUMS.md5 > CHECKSUMS.md5.2
+grep $slackwareVersion < CHECKSUMS.md5 > CHECKSUMS.md5.2
 mv CHECKSUMS.md5.2 CHECKSUMS.md5
 
 progName="libreoffice"
@@ -91,7 +100,7 @@ done
 
 echo -e "\\n\\n# Checking md5sum #"
 mv  ../CHECKSUMS_libreoffice.md5 .
-sed -i 's/pkg64\/'$slackVersion'\///g' CHECKSUMS_libreoffice.md5
+sed -i 's/pkg64\/'$slackwareVersion'\///g' CHECKSUMS_libreoffice.md5
 sed -i 's/.\/libreoffice\///g' CHECKSUMS_libreoffice.md5
 
 md5sum -c CHECKSUMS_libreoffice.md5
