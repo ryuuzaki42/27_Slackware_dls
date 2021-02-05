@@ -21,11 +21,11 @@
 #
 # Descrição: Script to download the last version of Slackware Live, made by AlienBob
 #
-# Last update: 10/11/2020
+# Last update: 05/02/2021
 #
 echo -e "\\nScript to download the last version of Slackware Live (made by Alien Bob)\\n"
 
-# last tested: "1.3.7"
+# last tested: "1.3.9"
 
 repoLink="http://bear.alienbase.nl/mirrors/slackware-live"
 #repoLink="https://slackware.nl/slackware-live"
