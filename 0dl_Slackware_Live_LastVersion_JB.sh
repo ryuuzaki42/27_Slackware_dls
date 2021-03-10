@@ -21,7 +21,7 @@
 #
 # Descrição: Script to download the last version of Slackware Live, made by AlienBob
 #
-# Last update: 05/02/2021
+# Last update: 10/03/2021
 #
 echo -e "\\nScript to download the last version of Slackware Live (made by Alien Bob)\\n"
 
@@ -33,6 +33,7 @@ repoLink="http://bear.alienbase.nl/mirrors/slackware-live"
 wget "$repoLink" -O "latestVersion"
 
 versionOnRepo=$(grep "href=\"[0-9]\.[0-9]\.[0-9]" < latestVersion | cut -d 'h' -f2 | cut -d '"' -f2 | cut -d '/' -f1 | tail -n 1)
+rm latestVersion
 
 versionLocal=$(find Slackware-Live-* | head -n 1 | cut -d '-' -f3)
 echo -e "\\n   Version Downloaded: $versionLocal\\nVersion Online (repo): $versionOnRepo\n"
