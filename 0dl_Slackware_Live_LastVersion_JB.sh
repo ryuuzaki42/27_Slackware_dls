@@ -21,13 +21,15 @@
 #
 # Descrição: Script to download the last version of Slackware Live, made by AlienBob
 #
-# Last update: 09/10/2021
+# Last update: 29/10/2021
 #
 echo -e "\\nScript to download the last version of Slackware Live (made by Alien Bob)\\n"
 
-# last tested: "1.3.10"
+# last tested: "1.4.0"
 
-repoLink="http://bear.alienbase.nl/mirrors/slackware-live"
+repoLink="https://repo.ukdw.ac.id/slackware-live"
+#repoLink="https://download.liveslak.org"
+#repoLink="http://bear.alienbase.nl/mirrors/slackware-live"
 #repoLink="https://slackware.nl/slackware-live"
 
 wget "$repoLink" -O "latestVersion"
@@ -59,12 +61,12 @@ cd "Slackware-Live-$versionOnRepo" || exit
 
 wget "$repoLink/$versionOnRepo" -O "latestVersion"
 
-infoISO=$(grep ".iso\"" < latestVersion | sed 's/<//g' | sed 's/>//g')
+infoISO=$(grep ".iso\"" < latestVersion | sed 's/.* href="//g')
 rm latestVersion
 
-nameISO=$(echo -e "$infoISO" | cut -d '"' -f12)
-dateISO=$(echo -e "$infoISO" | cut -d '"' -f15 | cut -d ' ' -f1)
-sizeISO=$(echo -e "$infoISO" | cut -d '"' -f17 | cut -d '/' -f1)
+nameISO=$(echo "$infoISO" | sed 's/">.*//g')
+dateISO=$(echo "$infoISO" | cut -d '>' -f5 | cut -d ' ' -f1-2)
+sizeISO=$(echo "$infoISO" | cut -d '>' -f7 | cut -d '<' -f1)
 
 alinPrint() {
     inputValue=$1
@@ -79,12 +81,12 @@ alinPrint() {
 }
 
 printTrace() {
-    echo -n " #----------------------------------"
-    echo "---------------------------------------#"
+    echo -n " #-------------------------------------"
+    echo "-----------------------------------------#"
 }
 
 count1="40"
-count2="15"
+count2="20"
 count3='7'
 
 printTrace
@@ -141,19 +143,18 @@ while [ "$countTmp" -lt "$countLine" ]; do
     ((countTmp++))
 done
 
-echo "Download \"iso2usb.sh\" (to create usbboot) and the \"README\" (slackware-live changelog)?"
-echo -n "(y)es - (n)o (hit enter to yes): "
-read -r downloadOrNot
+echo "Downloading \"iso2usb.sh\" (to create usbboot), \"upslak.sh\" (to update kernel and configs) and the \"README\" (slackware-live changelog)?"
+#echo -n "(y)es - (n)o (hit enter to yes): "
+#read -r downloadOrNot
 
-if [ "$downloadOrNot" != 'n' ];then
-    repoLinkConfig="http://www.slackware.com/~alien/liveslak/"
-
-    echo -e "\\n wget -c \"$repoLink/README\"\\n"
-    wget -c "$repoLink/README"
-
-    echo -e "\\n wget -c \"${repoLinkConfig}iso2usb.sh\"\\n"
-    wget -c "${repoLinkConfig}iso2usb.sh"
-fi
+#if [ "$downloadOrNot" != 'n' ];then
+    repoLinkConfig="http://www.slackware.com/~alien/liveslak"
+    files="README iso2usb.sh upslak.sh"
+    for file in $files; do
+        echo -e "\\n wget -c \"$repoLinkConfig/$file\"\\n"
+        wget -c "$repoLinkConfig/$file"
+    done
+#fi
 
 echo " # Md5sum check #"
 md5sum -c slackware*.md5
@@ -169,5 +170,3 @@ if [ "$versionLocal" != '' ] && [ "$versionLocal" != "$versionOnRepo" ]; then
         rm -r "$versionLocal"
     fi
 fi
-
-rm latestVersion
