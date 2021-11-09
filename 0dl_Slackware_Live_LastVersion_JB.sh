@@ -21,11 +21,11 @@
 #
 # Descrição: Script to download the last version of Slackware Live, made by AlienBob
 #
-# Last update: 29/10/2021
+# Last update: 09/11/2021
 #
 echo -e "\\nScript to download the last version of Slackware Live (made by Alien Bob)\\n"
 
-# last tested: "1.4.0"
+# last tested: "1.5.0"
 
 repoLink="https://repo.ukdw.ac.id/slackware-live"
 #repoLink="https://download.liveslak.org"
@@ -142,6 +142,8 @@ while [ "$countTmp" -lt "$countLine" ]; do
 
     ((countTmp++))
 done
+
+wget -c "https://download.liveslak.org/README" -O changelog.txt
 
 echo "Downloading \"iso2usb.sh\" (to create usbboot), \"upslak.sh\" (to update kernel and configs) and the \"README\" (slackware-live changelog)?"
 #echo -n "(y)es - (n)o (hit enter to yes): "
