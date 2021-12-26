@@ -21,11 +21,11 @@
 #
 # Descrição: Script to download the last version of Slackware Live, made by AlienBob
 #
-# Last update: 09/11/2021
+# Last update: 26/12/2021
 #
 echo -e "\\nScript to download the last version of Slackware Live (made by Alien Bob)\\n"
 
-# last tested: "1.5.0"
+# last tested: "1.5.1"
 
 repoLink="https://repo.ukdw.ac.id/slackware-live"
 #repoLink="https://download.liveslak.org"
