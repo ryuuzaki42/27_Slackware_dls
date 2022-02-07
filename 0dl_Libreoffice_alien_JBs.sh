@@ -21,22 +21,22 @@
 #
 # Descrição: Script to download the last version of Libreoffice, made by AlienBob
 #
-# Last update: 25/07/2021
+# Last update: 07/02/2022
 #
 case "$(uname -m)" in
     i?86) archDL="x86" ;;
     *) archDL=$(uname -m) ;;
 esac
 
-mirrorStart="http://www.slackware.com/~alien/slackbuilds"
-# last tested - 14.2: "7.0.4" current: "7.1.4"
+mirrorStart="https://slackware.nl/people/alien/slackbuilds"
+# last tested - 15.0: "7.3.0"
 
 if [ "$1" == '' ]; then
-    echo -en "\\n$CYAN# Most downloaded versions:$GREEN 14.0, 14.1, 14.2, current$CYAN\\nWith version Slackware you want? $GREEN(press enter to 14.2):$NC "
+    echo -en "\\n$CYAN# Most downloaded versions:$GREEN 14.2, 15.0, current$CYAN\\nWith version Slackware you want? $GREEN(press enter to 15.0):$NC "
     read -r slackwareVersion
 
     if [ "$slackwareVersion" == '' ]; then
-        slackwareVersion="14.2"
+        slackwareVersion="15.0"
     fi
 else
     slackwareVersion=$1
