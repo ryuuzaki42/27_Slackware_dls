@@ -21,7 +21,7 @@
 #
 # Descrição: Script to download the last version of Libreoffice, made by AlienBob
 #
-# Last update: 07/02/2022
+# Last update: 06/03/2022
 #
 case "$(uname -m)" in
     i?86) archDL="x86" ;;
@@ -29,7 +29,7 @@ case "$(uname -m)" in
 esac
 
 mirrorStart="https://slackware.nl/people/alien/slackbuilds"
-# last tested - 15.0: "7.3.0"
+# last tested - 15.0: "7.3.1"
 
 if [ "$1" == '' ]; then
     echo -en "\\n$CYAN# Most downloaded versions:$GREEN 14.2, 15.0, current$CYAN\\nWith version Slackware you want? $GREEN(press enter to 15.0):$NC "
@@ -45,7 +45,7 @@ fi
 echo -e "\\nMirror: $mirrorStart\\nSlackware version: $slackwareVersion\\n"
 wget "$mirrorStart/CHECKSUMS.md5" -O CHECKSUMS.md5
 
-grep $slackwareVersion < CHECKSUMS.md5 > CHECKSUMS.md5.2
+grep "/$slackwareVersion/" < CHECKSUMS.md5 > CHECKSUMS.md5.2
 mv CHECKSUMS.md5.2 CHECKSUMS.md5
 
 progName="libreoffice"
