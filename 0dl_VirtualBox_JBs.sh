@@ -21,7 +21,7 @@
 #
 # Descrição: Script to download the last version VirtualBox
 #
-# Last update: 21/01/2022
+# Last update: 03/04/2022
 #
 case "$(uname -m)" in
     i?86) archDL="x86" ;;
@@ -69,7 +69,7 @@ wget -c "$mirrorDl/$runFile"
 wget -c "$mirrorDl/$extpackFile"
 #wget -c "$mirrorDl/UserManual.pdf"
 
-echo  -e "\\nCheck md5sum files downloaded\\n"
+echo -e "\\nCheck md5sum files downloaded\\n"
 tmpFile=$(mktemp)
 echo "$runFileMd5" > "$tmpFile"
 echo "$extpackFileMd5" >> "$tmpFile"
