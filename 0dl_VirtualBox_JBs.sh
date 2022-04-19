@@ -21,7 +21,7 @@
 #
 # Descrição: Script to download the last version VirtualBox
 #
-# Last update: 03/04/2022
+# Last update: 19/04/2022
 #
 case "$(uname -m)" in
     i?86) archDL="x86" ;;
@@ -29,7 +29,7 @@ case "$(uname -m)" in
     *) archDL=$(uname -m) ;;
 esac
 
-progName="virtualbox" # last tested: "6.1.32"
+progName="virtualbox" # last tested: "6.1.34"
 
 linkGetVersion="https://www.virtualbox.org/wiki/Downloads"
 wget "$linkGetVersion" -O "${progName}_latest"
