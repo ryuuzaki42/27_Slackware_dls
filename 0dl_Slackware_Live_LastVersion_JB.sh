@@ -21,7 +21,7 @@
 #
 # Descrição: Script to download the last version of Slackware Live, made by AlienBob
 #
-# Last update: 12/08/2022
+# Last update: 14/08/2022
 #
 set -e
 
